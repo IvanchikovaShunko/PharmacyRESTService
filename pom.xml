@@ -9,9 +9,12 @@
     <version>1.0.0</version>
     <name>Pharmacy Catalog</name>
 
+
     <properties>
         <springframework.version>4.3.0.RELEASE</springframework.version>
         <jackson.library>2.7.5</jackson.library>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     </properties>
 
     <dependencies>
@@ -46,6 +49,20 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>com.heroku.sdk</groupId>
+                    <artifactId>heroku-maven-plugin</artifactId>
+                    <version>1.1.1</version>
+                    <configuration>
+                        <includes>
+                            <include>target/dependency/newrelic-agent.jar</include>
+                        </includes>
+
+                        <processTypes>
+                            <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+                        </processTypes>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
