@@ -18,7 +18,7 @@
     <context:annotation-config/>
     <context:component-scan base-package="by.fpmi.pharmacy"/>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_e56817b54c0b57a?useUnicode=true&amp;characterEncoding=UTF-8"/>
         <property name="username" value="ba9b9dd6018f42"/>
