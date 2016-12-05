@@ -1,6 +1,7 @@
 package by.fpmi.pharmacy.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by annashunko
@@ -8,10 +9,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user_det")
-public class UserDetail {
+public class UserDetail implements Serializable {
+    static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id_user_det")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idUserDet;
 
     @Column(name = "name")

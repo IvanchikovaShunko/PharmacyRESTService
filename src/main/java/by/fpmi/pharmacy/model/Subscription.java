@@ -1,15 +1,18 @@
 package by.fpmi.pharmacy.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "subscription")
-public class Subscription {
+public class Subscription implements Serializable {
+    static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id_subscription")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idSubscription;
 
     @Column(name = "subscription")

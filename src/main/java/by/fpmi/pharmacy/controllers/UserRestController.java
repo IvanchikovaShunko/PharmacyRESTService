@@ -51,7 +51,7 @@ public class UserRestController {
                                             @RequestParam(value = "email") String email,
                                             @RequestParam(value = "telephone") String telephone) {
         UserDetail userDetail = new UserDetail(name, age, gender, about, address, email, telephone);
-        User user = new User(login, password, userDetail);
+        User user = new User(login, password, "USER", userDetail);
         User savedUser  = userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

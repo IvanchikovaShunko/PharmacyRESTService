@@ -2,14 +2,17 @@ package by.fpmi.pharmacy.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "basket")
-public class Basket {
+public class Basket implements Serializable{
+    static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id_basket")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idBasket;
 
     @OneToMany(fetch = FetchType.LAZY)

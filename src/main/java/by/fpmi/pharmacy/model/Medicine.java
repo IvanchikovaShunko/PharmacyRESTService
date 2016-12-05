@@ -9,10 +9,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "medicine")
-public class Medicine {
+public class Medicine implements Serializable{
+    static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id_medicine")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idMedicine;
 
     @Column(name = "name_medicine")

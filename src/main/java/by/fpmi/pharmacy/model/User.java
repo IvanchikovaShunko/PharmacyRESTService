@@ -1,6 +1,8 @@
 package by.fpmi.pharmacy.model;
 
 
+import by.fpmi.pharmacy.utils.UserRole;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,7 +13,7 @@ public class User implements Serializable {
 
     @Id
     @Column(name = "id_user", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "login", nullable = false)
@@ -19,6 +21,9 @@ public class User implements Serializable {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "role", nullable = false)
+    private String role;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user_det")
@@ -28,9 +33,10 @@ public class User implements Serializable {
         return serialVersionUID;
     }
 
-    public User(String username, String password, UserDetail userDetail) {
+    public User(String username, String password, String role, UserDetail userDetail) {
         this.username = username;
         this.password = password;
+        this.role = role;
         this.userDetail = userDetail;
     }
 
@@ -67,5 +73,13 @@ public class User implements Serializable {
 
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
