@@ -23,9 +23,7 @@
         <property name="url" value="jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_e56817b54c0b57a?useUnicode=true&amp;characterEncoding=UTF-8"/>
         <property name="username" value="ba9b9dd6018f42"/>
         <property name="password" value="93d58bb0"/>
-        <property name="loginTimeout" value="3000"/>
-        <property name="testOnBorrow" value="true"/>
-        <property name="validationQuery" value="SELECT 1"/>
+        <!--<property name="loginTimeout" value="3000"/>-->
     </bean>
 
     <bean id="sessionFactory"
