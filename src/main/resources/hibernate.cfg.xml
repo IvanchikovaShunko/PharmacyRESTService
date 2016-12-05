@@ -4,8 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <mapping class="by.fpmi.pharmacy.model.Medicine"/>
+        <mapping class="by.fpmi.pharmacy.model.Basket"/>
+        <mapping class="by.fpmi.pharmacy.model.Subscription"/>
         <mapping class="by.fpmi.pharmacy.model.User"/>
-        <mapping class="by.fpmi.pharmacy.model.UserRole"/>
-        <mapping class="by.fpmi.pharmacy.model.Question"/>
+        <mapping class="by.fpmi.pharmacy.model.UserDetail"/>
+
     </session-factory>
 </hibernate-configuration>

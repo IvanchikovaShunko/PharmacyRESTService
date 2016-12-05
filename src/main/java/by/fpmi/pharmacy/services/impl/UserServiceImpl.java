@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(int id) {
+        return userDao.getUserById(id);
+    }
+
+    @Override
     public void update(User user) {
         userDao.update(user);
     }
@@ -44,17 +49,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerNewUserAccount(User accountDto) throws NullPointerException {
-        if (usernameExists(accountDto.getUsername())) {
-            throw new NullPointerException("Account with that username: " + accountDto.getUsername() + " already exists!");
-        }
-        final User user = new User();
-        user.setUsername(accountDto.getUsername());
-        user.setPassword(new CustomPasswordEncoder("sha-256").encodePassword(accountDto.getPassword(), accountDto.getUsername()));
-        user.setEnabled(true);
-        user.setFirstname(accountDto.getFirstname());
-        user.setLastname(accountDto.getLastname());
-        //user.getUserRolesSet().add(new UserRole(user, "USER"));
-        return userDao.save(user);
+//        if (usernameExists(accountDto.getUsername())) {
+//            throw new NullPointerException("Account with that username: " + accountDto.getUsername() + " already exists!");
+//        }
+//        final User user = new User();
+//        user.setUsername(accountDto.getUsername());
+//        user.setPassword(new CustomPasswordEncoder("sha-256").encodePassword(accountDto.getPassword(), accountDto.getUsername()));
+//        user.setEnabled(true);
+//        user.setFirstname(accountDto.getFirstname());
+//        user.setLastname(accountDto.getLastname());
+//        //user.getUserRolesSet().add(new UserRole(user, "USER"));
+//        return userDao.save(user);
+        return accountDto;
     }
 
     @Override

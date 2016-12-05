@@ -3,35 +3,36 @@ package by.fpmi.pharmacy.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "app_user")
-public class User implements Serializable{
+@Table(name = "user")
+public class User implements Serializable {
     static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "USERNAME", nullable = false)
+    @Column(name = "id_user", nullable = false)
+    private int id;
+
+    @Column(name = "login", nullable = false)
     private String username;
 
-    @Column(name = "PASSWORD", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserRole> userRolesSet = new HashSet<UserRole>(0);
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user_det")
+    private UserDetail idUserDetail;
 
-    @Column(name = "ENABLED", nullable = false)
-    private boolean enabled;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-    @Column(name = "FIRSTNAME", nullable = false)
-    private String firstname;
+    public int getId() {
+        return id;
+    }
 
-    @Column(name = "LASTNAME", nullable = false)
-    private String lastname;
-
-    public User() {
-        this.enabled = true;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -50,35 +51,11 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public Set<UserRole> getUserRolesSet() {
-        return userRolesSet;
+    public UserDetail getIdUserDetail() {
+        return idUserDetail;
     }
 
-    public void setUserRolesSet(Set<UserRole> userRolesSet) {
-        this.userRolesSet = userRolesSet;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setIdUserDetail(UserDetail idUserDetail) {
+        this.idUserDetail = idUserDetail;
     }
 }
