@@ -45,6 +45,25 @@ public class Medicine {
     @Column(name = "contradictions")
     private String contradictions;
 
+    public Medicine(String nameMedicine, String aboutMedicine, Double gramInOne, Double cost, Integer quantity,
+                    String consist, Date expiration_date, String state, String dosing,
+                    String contradictions, Set<Subscription> subscriptions) {
+        this.nameMedicine = nameMedicine;
+        this.aboutMedicine = aboutMedicine;
+        this.gramInOne = gramInOne;
+        this.cost = cost;
+        this.quantity = quantity;
+        this.consist = consist;
+        this.expiration_date = expiration_date;
+        this.state = state;
+        this.dosing = dosing;
+        this.contradictions = contradictions;
+        this.subscriptions = subscriptions;
+    }
+
+    public Medicine() {
+    }
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "medicines")
     private Set<Subscription> subscriptions = new HashSet<Subscription>();
 

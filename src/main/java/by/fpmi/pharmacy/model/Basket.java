@@ -12,8 +12,8 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBasket;
 
-    @OneToMany(mappedBy = "idMedicine")
-    private Set<Medicine> idMedicine;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Medicine> medicines;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
@@ -21,6 +21,15 @@ public class Basket {
 
     @Column(name = "count")
     private Integer count;
+
+    public Basket(Set<Medicine> medicines, User idUser, Integer count) {
+        this.medicines = medicines;
+        this.idUser = idUser;
+        this.count = count;
+    }
+
+    public Basket() {
+    }
 
     public Integer getIdBasket() {
         return idBasket;
@@ -30,12 +39,12 @@ public class Basket {
         this.idBasket = idBasket;
     }
 
-    public Set<Medicine> getIdMedicine() {
-        return idMedicine;
+    public Set<Medicine> getMedicines() {
+        return medicines;
     }
 
-    public void setIdMedicine(Set<Medicine> idMedicine) {
-        this.idMedicine = idMedicine;
+    public void setMedicines(Set<Medicine> idMedicine) {
+        this.medicines = idMedicine;
     }
 
     public User getIdUser() {

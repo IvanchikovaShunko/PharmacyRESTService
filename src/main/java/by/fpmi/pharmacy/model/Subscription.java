@@ -30,6 +30,15 @@ public class Subscription {
     @JoinColumn(name = "id_user")
     private User idUser;
 
+    public Subscription(Boolean subscription, String subscriptionPeriod, Set<Medicine> medicines, User idUser) {
+        this.subscription = subscription;
+        this.subscriptionPeriod = subscriptionPeriod;
+        this.medicines = medicines;
+        this.idUser = idUser;
+    }
+
+    public Subscription() {
+    }
 
     public Integer getIdSubscription() {
         return idSubscription;

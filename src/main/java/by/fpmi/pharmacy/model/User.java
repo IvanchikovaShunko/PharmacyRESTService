@@ -11,6 +11,7 @@ public class User implements Serializable {
 
     @Id
     @Column(name = "id_user", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "login", nullable = false)
@@ -21,10 +22,19 @@ public class User implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user_det")
-    private UserDetail idUserDetail;
+    private UserDetail userDetail;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public User(String username, String password, UserDetail userDetail) {
+        this.username = username;
+        this.password = password;
+        this.userDetail = userDetail;
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -51,11 +61,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public UserDetail getIdUserDetail() {
-        return idUserDetail;
+    public UserDetail getUserDetail() {
+        return userDetail;
     }
 
-    public void setIdUserDetail(UserDetail idUserDetail) {
-        this.idUserDetail = idUserDetail;
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 }

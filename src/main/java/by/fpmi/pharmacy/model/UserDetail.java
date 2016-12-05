@@ -35,6 +35,19 @@ public class UserDetail {
     @Column(name = "telephone")
     private String telephone;
 
+    public UserDetail(String name, Integer age, String gender, String about, String homeAddress, String email, String telephone) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.about = about;
+        this.homeAddress = homeAddress;
+        this.email = email;
+        this.telephone = telephone;
+    }
+
+    public UserDetail() {
+    }
+
     public Integer getIdUserDet() {
         return idUserDet;
     }

@@ -9,8 +9,10 @@ public interface UserService {
     User readUserByUsername(String username);
     User getUserById(int id);
     void update(User user);
-    void save(User user);
+    User save(User user);
     void delete(String username);
     User registerNewUserAccount(User accountDao) throws NullPointerException;
     List<User> listUsers();
+    User find(String login, String password);
+
 }
