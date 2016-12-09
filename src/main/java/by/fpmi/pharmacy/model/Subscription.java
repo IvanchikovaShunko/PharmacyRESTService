@@ -22,21 +22,18 @@ public class Subscription implements Serializable {
     private String subscriptionPeriod;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "subscription_medicine", joinColumns = {
-            @JoinColumn(name = "id_subscription", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "id_medicine",
-                    nullable = false, updatable = false) })
-    private Set<Medicine> medicines = new HashSet<Medicine>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_medicine")
+    private Medicine medicine;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
     private User idUser;
 
-    public Subscription(Boolean subscription, String subscriptionPeriod, Set<Medicine> medicines, User idUser) {
+    public Subscription(Boolean subscription, String subscriptionPeriod, Medicine medicine, User idUser) {
         this.subscription = subscription;
         this.subscriptionPeriod = subscriptionPeriod;
-        this.medicines = medicines;
+        this.medicine = medicine;
         this.idUser = idUser;
     }
 
@@ -67,12 +64,12 @@ public class Subscription implements Serializable {
         this.subscriptionPeriod = subscriptionPeriod;
     }
 
-    public Set<Medicine> getMedicines() {
-        return medicines;
+    public Medicine getMedicine() {
+        return medicine;
     }
 
-    public void setMedicines(Set<Medicine> medicines) {
-        this.medicines = medicines;
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
     }
 
     public User getIdUser() {

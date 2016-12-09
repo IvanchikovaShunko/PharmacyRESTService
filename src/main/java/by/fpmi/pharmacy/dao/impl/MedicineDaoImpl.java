@@ -34,18 +34,28 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public void update(Medicine medicine) {
-        //TODO
+        sessionFactory.getCurrentSession().update(medicine);
     }
 
     @Override
     public Medicine save(Medicine medicine) {
-        //TODO
-        return null;
+        if (medicine.getIdMedicine() != null) {
+            Medicine m = getById(medicine.getIdMedicine());
+            if (m != null) {
+                sessionFactory.getCurrentSession().merge(medicine);
+                return medicine;
+            }
+        }
+        sessionFactory.getCurrentSession().save(medicine);
+        return medicine;
     }
 
     @Override
     public void delete(int id) {
-    //TODO
+        Medicine medicine = getById(id);
+        if (null != medicine) {
+            sessionFactory.getCurrentSession().delete(medicine);
+        }
     }
 
     @Override

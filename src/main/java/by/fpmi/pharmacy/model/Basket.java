@@ -16,9 +16,10 @@ public class Basket implements Serializable{
     private Integer idBasket;
 
     @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_medicine")
     private Set<Medicine> medicines;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
     private User idUser;
 

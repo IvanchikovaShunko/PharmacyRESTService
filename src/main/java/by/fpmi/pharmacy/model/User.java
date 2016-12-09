@@ -5,6 +5,7 @@ import by.fpmi.pharmacy.utils.UserRole;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -28,6 +29,10 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user_det")
     private UserDetail userDetail;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_subscription")
+    private List<Subscription> subscriptions;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

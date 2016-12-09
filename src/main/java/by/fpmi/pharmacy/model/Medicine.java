@@ -49,7 +49,7 @@ public class Medicine implements Serializable{
 
     public Medicine(String nameMedicine, String aboutMedicine, Double gramInOne, Double cost, Integer quantity,
                     String consist, Date expiration_date, String state, String dosing,
-                    String contradictions, Set<Subscription> subscriptions) {
+                    String contradictions) {
         this.nameMedicine = nameMedicine;
         this.aboutMedicine = aboutMedicine;
         this.gramInOne = gramInOne;
@@ -60,14 +60,11 @@ public class Medicine implements Serializable{
         this.state = state;
         this.dosing = dosing;
         this.contradictions = contradictions;
-        this.subscriptions = subscriptions;
     }
 
     public Medicine() {
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "medicines")
-    private Set<Subscription> subscriptions = new HashSet<Subscription>();
 
     public Integer getIdMedicine() {
         return idMedicine;
