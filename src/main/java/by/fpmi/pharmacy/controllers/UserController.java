@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class UserRestController {
+public class UserController {
 
     @Autowired
     private UserService userService;
