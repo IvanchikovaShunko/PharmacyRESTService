@@ -1,6 +1,5 @@
 package by.fpmi.pharmacy.dao;
 
-import by.fpmi.pharmacy.model.Medicine;
 import by.fpmi.pharmacy.model.Subscription;
 
 import java.util.List;

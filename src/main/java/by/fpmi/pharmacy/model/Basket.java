@@ -3,11 +3,12 @@ package by.fpmi.pharmacy.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "basket")
-public class Basket implements Serializable{
+public class Basket implements Serializable {
     static final long serialVersionUID = 1L;
 
     @Id
@@ -15,24 +16,25 @@ public class Basket implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idBasket;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_medicine")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "basket_medicine", joinColumns = {
+            @JoinColumn(name = "id_basket", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "id_medicine",
+                    nullable = false)})
     private Set<Medicine> medicines;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
     private User idUser;
 
-    @Column(name = "count")
-    private Integer count;
 
     public Basket(Set<Medicine> medicines, User idUser, Integer count) {
         this.medicines = medicines;
         this.idUser = idUser;
-        this.count = count;
     }
 
     public Basket() {
+        this.medicines = new HashSet<>();
     }
 
     public Integer getIdBasket() {
@@ -44,6 +46,16 @@ public class Basket implements Serializable{
     }
 
     public Set<Medicine> getMedicines() {
+        return medicines;
+    }
+
+    public Set<Medicine> addMedicine(Medicine medicine) {
+        medicines.add(medicine);
+        return medicines;
+    }
+
+    public Set<Medicine> removeMedicine(Medicine medicine) {
+        medicines.remove(medicine);
         return medicines;
     }
 
@@ -59,11 +71,4 @@ public class Basket implements Serializable{
         this.idUser = idUser;
     }
 
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 }

@@ -47,6 +47,9 @@ public class Medicine implements Serializable{
     @Column(name = "contradictions")
     private String contradictions;
 
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "medicines")
+//    private Set<Basket> baskets;
+
     public Medicine(String nameMedicine, String aboutMedicine, Double gramInOne, Double cost, Integer quantity,
                     String consist, Date expiration_date, String state, String dosing,
                     String contradictions) {
@@ -152,5 +155,10 @@ public class Medicine implements Serializable{
 
     public void setContradictions(String contradictions) {
         this.contradictions = contradictions;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

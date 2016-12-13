@@ -1,7 +1,6 @@
 package by.fpmi.pharmacy.dao;
 
 import by.fpmi.pharmacy.model.Basket;
-import by.fpmi.pharmacy.model.Subscription;
 
 import java.util.List;
 
@@ -10,8 +9,9 @@ import java.util.List;
  */
 public interface BasketDao {
     Basket getById(int id);
+    Basket getByUserId(int id);
     void update(Basket basket);
-    Subscription save(Basket basket);
+    Basket save(Basket basket);
     void delete(int id);
     List<Basket> listBaskets();
 }

@@ -2,12 +2,14 @@ package by.fpmi.pharmacy.dao.impl;
 
 import by.fpmi.pharmacy.dao.SubscriptionDao;
 import by.fpmi.pharmacy.model.Subscription;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by annashunko
  */
+@Repository
 public class SubscriptionDaoImpl implements SubscriptionDao{
     @Override
     public Subscription getById(int id) {
