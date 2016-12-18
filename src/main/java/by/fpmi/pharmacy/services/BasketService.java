@@ -1,6 +1,7 @@
 package by.fpmi.pharmacy.services;
 
 import by.fpmi.pharmacy.model.Basket;
+import by.fpmi.pharmacy.model.Medicine;
 
 import java.util.List;
 
@@ -13,5 +14,6 @@ public interface BasketService {
     void update(Basket basket);
     Basket save(Basket basket);
     void delete(int id);
-    List<Basket> listBaskets();
+    void removeMedicine(Basket basket, Medicine medicine);
+
 }

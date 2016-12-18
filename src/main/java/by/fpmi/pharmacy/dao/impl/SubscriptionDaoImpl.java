@@ -2,6 +2,8 @@ package by.fpmi.pharmacy.dao.impl;
 
 import by.fpmi.pharmacy.dao.SubscriptionDao;
 import by.fpmi.pharmacy.model.Subscription;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,28 +13,58 @@ import java.util.List;
  */
 @Repository
 public class SubscriptionDaoImpl implements SubscriptionDao{
+    private static String GET_SUBSCRIPTION_BY_ID = "FROM Subscription WHERE idSubscription=:id";
+    private static String GET_SUBSCRIPTION_BY_USER_ID = "FROM Basket WHERE idUser.id=:idUser";
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Override
     public Subscription getById(int id) {
-        return null;
+        List subscriptions = sessionFactory.getCurrentSession().createQuery(GET_SUBSCRIPTION_BY_ID)
+                .setParameter("id", id).list();
+        if (subscriptions.size() > 0) {
+            return (Subscription) subscriptions.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Subscription getByUserId(int userId) {
+        List subscriptions = sessionFactory.getCurrentSession().createQuery(GET_SUBSCRIPTION_BY_USER_ID)
+                .setParameter("idUser", userId).list();
+        if (subscriptions.size() > 0) {
+            return (Subscription) subscriptions.get(0);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void update(Subscription subscription) {
-
+        sessionFactory.getCurrentSession().update(subscription);
     }
 
     @Override
     public Subscription save(Subscription subscription) {
-        return null;
+        if (subscription.getIdSubscription() != null) {
+            Subscription b = getById(subscription.getIdSubscription());
+            if (b != null) {
+                sessionFactory.getCurrentSession().merge(subscription);
+                return subscription;
+            }
+        }
+        sessionFactory.getCurrentSession().save(subscription);
+        return subscription;
     }
 
     @Override
     public void delete(int id) {
-
+        Subscription subscription = getById(id);
+        if (null != subscription) {
+            sessionFactory.getCurrentSession().delete(subscription);
+        }
     }
 
-    @Override
-    public List<Subscription> listSubscriptions() {
-        return null;
-    }
 }

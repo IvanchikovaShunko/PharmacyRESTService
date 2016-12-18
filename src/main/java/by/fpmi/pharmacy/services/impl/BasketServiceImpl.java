@@ -3,6 +3,7 @@ package by.fpmi.pharmacy.services.impl;
 import by.fpmi.pharmacy.dao.BasketDao;
 import by.fpmi.pharmacy.dao.UserDao;
 import by.fpmi.pharmacy.model.Basket;
+import by.fpmi.pharmacy.model.Medicine;
 import by.fpmi.pharmacy.services.BasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public List<Basket> listBaskets() {
-        return basketDao.listBaskets();
+    public void removeMedicine(Basket basket, Medicine medicine) {
+        basketDao.removeMedicine(basket, medicine);
     }
 }

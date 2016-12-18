@@ -2,8 +2,11 @@ package by.fpmi.pharmacy.dao.impl;
 
 import by.fpmi.pharmacy.dao.BasketDao;
 import by.fpmi.pharmacy.model.Basket;
-import by.fpmi.pharmacy.model.Subscription;
+import by.fpmi.pharmacy.model.Medicine;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +37,6 @@ public class BasketDaoImpl implements BasketDao {
 
     @Override
     public Basket getByUserId(int id) {
-        List a = sessionFactory.getCurrentSession().createQuery("FROM Basket").list();
         List baskets = sessionFactory.getCurrentSession().createQuery(GET_BASKET_BY_USER_ID)
                 .setParameter("idUser", id).list();
         if (baskets.size() > 0) {
@@ -63,6 +65,13 @@ public class BasketDaoImpl implements BasketDao {
     }
 
     @Override
+    public void removeMedicine(Basket basket, Medicine medicine) {
+        //sessionFactory.getCurrentSession().delete(medicine);
+        basket.getMedicines().remove(medicine);
+        sessionFactory.getCurrentSession().merge(basket);
+    }
+
+    @Override
     public void delete(int id) {
         Basket basket = getById(id);
         if (null != basket) {
@@ -70,8 +79,4 @@ public class BasketDaoImpl implements BasketDao {
         }
     }
 
-    @Override
-    public List<Basket> listBaskets() {
-        return null;
-    }
 }

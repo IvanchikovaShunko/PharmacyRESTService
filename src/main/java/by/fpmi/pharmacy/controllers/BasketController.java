@@ -7,6 +7,8 @@ import by.fpmi.pharmacy.services.BasketService;
 import by.fpmi.pharmacy.services.MedicineService;
 import by.fpmi.pharmacy.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -26,8 +28,14 @@ public class BasketController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "/user/{userId}/basket", method = RequestMethod.GET)
+    public ResponseEntity<Basket> getUserBasket(@PathVariable int userId){
+        Basket basket = basketService.getByUserId(userId);
+        return new ResponseEntity<Basket>(basket, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/user/{userId}/basket/add", method = RequestMethod.POST)
-    public Basket userAddToBasket(@PathVariable int userId,
+    public ResponseEntity<Basket> userAddToBasket(@PathVariable int userId,
                                   @RequestParam(value = "medicine_id") int medicineId) {
         Medicine medicine = medicineService.getById(medicineId);
         Basket basket = basketService.getByUserId(userId);
@@ -42,25 +50,28 @@ public class BasketController {
                 basket.addMedicine(medicine);
                 basketService.update(basket);
             }
-            return basket;
+            return new ResponseEntity<Basket>(basket, HttpStatus.OK);
+
         }
-        return null;
+        return new ResponseEntity<Basket>(basket, HttpStatus.NOT_FOUND);
+
     }
 
     @RequestMapping(value = "/user/{userId}/basket/remove", method = RequestMethod.POST)
-    public Basket userRemoveFromBasket(@PathVariable int userId,
+    public ResponseEntity<Basket> userRemoveFromBasket(@PathVariable int userId,
                                   @RequestParam(value = "medicine_id") int medicineId) {
         Medicine medicine = medicineService.getById(medicineId);
         Basket basket = basketService.getByUserId(userId);
         User user = userService.getUserById(userId);
         if (medicine != null) {
             if (basket != null) {
-                basket.removeMedicine(medicine);
-                basketService.update(basket);
+                basketService.removeMedicine(basket, medicine);
+               //basket.removeMedicine(medicine);
+              // basketService.update(basket);
             }
-            return basket;
+            return new ResponseEntity<Basket>(basket, HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<Basket>(basket, HttpStatus.NOT_FOUND);
     }
 
 }

@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface SubscriptionDao {
     Subscription getById(int id);
+    Subscription getByUserId(int userId);
     void update(Subscription subscription);
     Subscription save(Subscription subscription);
     void delete(int id);
-    List<Subscription> listSubscriptions();
 }

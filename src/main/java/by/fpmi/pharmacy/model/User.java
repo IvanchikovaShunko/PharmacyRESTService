@@ -30,7 +30,7 @@ public class User implements Serializable {
     @JoinColumn(name = "id_user_det")
     private UserDetail userDetail;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "id_subscription")
     private List<Subscription> subscriptions;
 

@@ -16,7 +16,7 @@ public class Basket implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idBasket;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(name = "basket_medicine", joinColumns = {
             @JoinColumn(name = "id_basket", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "id_medicine",
