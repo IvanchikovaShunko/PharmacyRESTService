@@ -51,7 +51,7 @@ public class MedicineController {
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         Date date = dateFormat.parse(expireDate);
         Medicine medicine = new Medicine(name, about, gramInOne,cost, quantity, consist, date,
-                state, dosing, contradictions);
+                state, dosing, contradictions, null);
         Medicine savedMedicine  = medicineService.save(medicine);
         return new ResponseEntity<>(savedMedicine, HttpStatus.OK);
     }
