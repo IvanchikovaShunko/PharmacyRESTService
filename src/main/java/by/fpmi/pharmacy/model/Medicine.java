@@ -47,12 +47,13 @@ public class Medicine implements Serializable{
     @Column(name = "contradictions")
     private String contradictions;
 
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "medicines")
-//    private Set<Basket> baskets;
+    @Column(name = "image_path")
+    private String imagePath;
+
 
     public Medicine(String nameMedicine, String aboutMedicine, Double gramInOne, Double cost, Integer quantity,
                     String consist, Date expiration_date, String state, String dosing,
-                    String contradictions) {
+                    String contradictions, String imagePath) {
         this.nameMedicine = nameMedicine;
         this.aboutMedicine = aboutMedicine;
         this.gramInOne = gramInOne;
@@ -63,6 +64,7 @@ public class Medicine implements Serializable{
         this.state = state;
         this.dosing = dosing;
         this.contradictions = contradictions;
+        this.imagePath = imagePath;
     }
 
     public Medicine() {
@@ -157,6 +159,14 @@ public class Medicine implements Serializable{
         this.contradictions = contradictions;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -174,7 +184,8 @@ public class Medicine implements Serializable{
         if (!getExpiration_date().equals(medicine.getExpiration_date())) return false;
         if (!getState().equals(medicine.getState())) return false;
         if (!getDosing().equals(medicine.getDosing())) return false;
-        return getContradictions().equals(medicine.getContradictions());
+        if (!getContradictions().equals(medicine.getContradictions())) return false;
+        return getImagePath().equals(medicine.getImagePath());
 
     }
 
@@ -191,6 +202,7 @@ public class Medicine implements Serializable{
         result = 31 * result + getState().hashCode();
         result = 31 * result + getDosing().hashCode();
         result = 31 * result + getContradictions().hashCode();
+        result = 31 * result + getImagePath().hashCode();
         return result;
     }
 }
