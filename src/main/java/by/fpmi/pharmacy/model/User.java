@@ -30,7 +30,7 @@ public class User implements Serializable {
     @JoinColumn(name = "id_user_det")
     private UserDetail userDetail;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "id_subscription")
     private List<Subscription> subscriptions;
 
@@ -86,5 +86,40 @@ public class User implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (getId() != user.getId()) return false;
+        if (!getUsername().equals(user.getUsername())) return false;
+        if (!getPassword().equals(user.getPassword())) return false;
+        if (!getRole().equals(user.getRole())) return false;
+        if (!getUserDetail().equals(user.getUserDetail())) return false;
+        return getSubscriptions().equals(user.getSubscriptions());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + getUsername().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        result = 31 * result + getRole().hashCode();
+        result = 31 * result + getUserDetail().hashCode();
+        result = 31 * result + getSubscriptions().hashCode();
+        return result;
     }
 }

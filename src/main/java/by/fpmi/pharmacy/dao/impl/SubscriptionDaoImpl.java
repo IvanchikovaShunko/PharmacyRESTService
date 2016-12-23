@@ -55,6 +55,15 @@ public class SubscriptionDaoImpl implements SubscriptionDao{
                 return subscription;
             }
         }
+        if (subscription.getIdUser() != null){
+            List<Subscription> sub = getUserSubscriptions(subscription.getIdUser().getId());
+            for(Subscription s : sub){
+                if (s.getMedicine().equals(subscription.getMedicine())){
+                    //sessionFactory.getCurrentSession().merge(subscription);
+                    return subscription;
+                }
+            }
+        }
         sessionFactory.getCurrentSession().save(subscription);
         return subscription;
     }

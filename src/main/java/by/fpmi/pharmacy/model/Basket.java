@@ -71,4 +71,24 @@ public class Basket implements Serializable {
         this.idUser = idUser;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Basket basket = (Basket) o;
+
+        if (!getIdBasket().equals(basket.getIdBasket())) return false;
+        if (!getMedicines().equals(basket.getMedicines())) return false;
+        return getIdUser().equals(basket.getIdUser());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getIdBasket().hashCode();
+        result = 31 * result + getMedicines().hashCode();
+        result = 31 * result + getIdUser().hashCode();
+        return result;
+    }
 }

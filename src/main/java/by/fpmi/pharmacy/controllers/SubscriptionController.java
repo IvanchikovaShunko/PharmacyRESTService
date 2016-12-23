@@ -30,18 +30,32 @@ public class SubscriptionController {
     private UserService userService;
 
     @RequestMapping(value = "/user/{userId}/subscriptions", method = RequestMethod.GET)
-    public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable int userId){
+    public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable int userId) {
         List<Subscription> subscriptions = subscriptionService.getUserSubscriptions(userId);
         return new ResponseEntity<List<Subscription>>(subscriptions, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/user/{userId}/subscriptions/add", method = RequestMethod.POST)
-//    public ResponseEntity<Subscription> userSubscribe(@PathVariable int userId,
-//                                                  @RequestParam(value = "medicine_id") int medicineId) {
-//        Medicine medicine = medicineService.getById(medicineId);
-//        User user = userService.getUserById(userId);
-//
-//        return new ResponseEntity<Subscription>();
-//
-//    }
+    @RequestMapping(value = "/user/{userId}/subscriptions/add", method = RequestMethod.POST)
+    public ResponseEntity<Integer> userSubscribe(@PathVariable int userId,
+                                                 @RequestParam(value = "medicine_id") int medicineId,
+                                                 @RequestParam(value = "period") String period) {
+        Medicine medicine = medicineService.getById(medicineId);
+        User user = userService.getUserById(userId);
+        Subscription subscription = new Subscription(true, period, medicine, user);
+        subscriptionService.save(subscription);
+        return new ResponseEntity<Integer>(200, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/user/{userId}/subscriptions/remove/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Integer> userSubscribe(@PathVariable(value = "userId") int userId,
+                                                 @PathVariable(value = "id") int id) {
+        User user = userService.getUserById(userId);
+        Subscription subscription = subscriptionService.getById(id);
+        if (subscription != null) {
+            subscriptionService.delete(id);
+            return new ResponseEntity<Integer>(200, HttpStatus.OK);
+        }
+        return new ResponseEntity<Integer>(400, HttpStatus.NOT_FOUND);
+    }
 }

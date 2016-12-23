@@ -26,7 +26,7 @@ public class Subscription implements Serializable {
     @JoinColumn(name = "id_medicine")
     private Medicine medicine;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.PERSIST})
     @JoinColumn(name = "id_user")
     private User idUser;
 
@@ -78,5 +78,30 @@ public class Subscription implements Serializable {
 
     public void setIdUser(User idUser) {
         this.idUser = idUser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Subscription that = (Subscription) o;
+
+        if (!getIdSubscription().equals(that.getIdSubscription())) return false;
+        if (!getSubscription().equals(that.getSubscription())) return false;
+        if (!getSubscriptionPeriod().equals(that.getSubscriptionPeriod())) return false;
+        if (!getMedicine().equals(that.getMedicine())) return false;
+        return getIdUser().equals(that.getIdUser());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getIdSubscription().hashCode();
+        result = 31 * result + getSubscription().hashCode();
+        result = 31 * result + getSubscriptionPeriod().hashCode();
+        result = 31 * result + getMedicine().hashCode();
+        result = 31 * result + getIdUser().hashCode();
+        return result;
     }
 }
