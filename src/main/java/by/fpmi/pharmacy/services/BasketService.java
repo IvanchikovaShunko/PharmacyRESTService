@@ -15,5 +15,7 @@ public interface BasketService {
     Basket save(Basket basket);
     void delete(int id);
     void removeMedicine(Basket basket, Medicine medicine);
+    void clearBasket(Basket basket);
+
 
 }

@@ -62,16 +62,20 @@ public class BasketController {
                                   @RequestParam(value = "medicine_id") int medicineId) {
         Medicine medicine = medicineService.getById(medicineId);
         Basket basket = basketService.getByUserId(userId);
-        User user = userService.getUserById(userId);
         if (medicine != null) {
             if (basket != null) {
                 basketService.removeMedicine(basket, medicine);
-               //basket.removeMedicine(medicine);
-              // basketService.update(basket);
             }
             return new ResponseEntity<Basket>(basket, HttpStatus.OK);
         }
         return new ResponseEntity<Basket>(basket, HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/user/{userId}/basket/clear", method = RequestMethod.POST)
+    public ResponseEntity<Basket> userClearBasket(@PathVariable int userId) {
+        Basket basket = basketService.getByUserId(userId);
+        basketService.clearBasket(basket);
+        return new ResponseEntity<Basket>(basket, HttpStatus.OK);
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class SubscriptionDaoImpl implements SubscriptionDao{
     private static String GET_SUBSCRIPTION_BY_ID = "FROM Subscription WHERE idSubscription=:id";
-    private static String GET_SUBSCRIPTION_BY_USER_ID = "FROM Basket WHERE idUser.id=:idUser";
+    private static String GET_SUBSCRIPTION_BY_USER_ID = "FROM Subscription WHERE idUser.id=:idUser";
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -31,11 +31,11 @@ public class SubscriptionDaoImpl implements SubscriptionDao{
     }
 
     @Override
-    public Subscription getByUserId(int userId) {
+    public List<Subscription> getUserSubscriptions(int userId) {
         List subscriptions = sessionFactory.getCurrentSession().createQuery(GET_SUBSCRIPTION_BY_USER_ID)
                 .setParameter("idUser", userId).list();
         if (subscriptions.size() > 0) {
-            return (Subscription) subscriptions.get(0);
+            return subscriptions;
         } else {
             return null;
         }

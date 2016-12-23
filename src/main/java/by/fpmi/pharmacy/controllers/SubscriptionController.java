@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by annashunko
  */
@@ -28,9 +30,9 @@ public class SubscriptionController {
     private UserService userService;
 
     @RequestMapping(value = "/user/{userId}/subscriptions", method = RequestMethod.GET)
-    public ResponseEntity<Subscription> getUserSubscriptions(@PathVariable int userId){
-        Subscription subscription = subscriptionService.getByUserId(userId);
-        return new ResponseEntity<Subscription>(subscription, HttpStatus.OK);
+    public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable int userId){
+        List<Subscription> subscriptions = subscriptionService.getUserSubscriptions(userId);
+        return new ResponseEntity<List<Subscription>>(subscriptions, HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "/user/{userId}/subscriptions/add", method = RequestMethod.POST)
