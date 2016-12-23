@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao{
         if (subscriptions.size() > 0) {
             return subscriptions;
         } else {
-            return null;
+            return new ArrayList<Subscription>();
         }
     }
 
