@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -50,6 +51,9 @@ public class Medicine implements Serializable{
     @Column(name = "image_path")
     private String imagePath;
 
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "id_subscription")
+    private List<Subscription> subscriptions;
 
     public Medicine(String nameMedicine, String aboutMedicine, Double gramInOne, Double cost, Integer quantity,
                     String consist, Date expiration_date, String state, String dosing,
