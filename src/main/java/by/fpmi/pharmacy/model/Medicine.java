@@ -171,6 +171,14 @@ public class Medicine implements Serializable{
         this.imagePath = imagePath;
     }
 
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -189,7 +197,8 @@ public class Medicine implements Serializable{
         if (!getState().equals(medicine.getState())) return false;
         if (!getDosing().equals(medicine.getDosing())) return false;
         if (!getContradictions().equals(medicine.getContradictions())) return false;
-        return getImagePath().equals(medicine.getImagePath());
+        if (!getImagePath().equals(medicine.getImagePath())) return false;
+        return getSubscriptions().equals(medicine.getSubscriptions());
 
     }
 
@@ -207,6 +216,7 @@ public class Medicine implements Serializable{
         result = 31 * result + getDosing().hashCode();
         result = 31 * result + getContradictions().hashCode();
         result = 31 * result + getImagePath().hashCode();
+        result = 31 * result + getSubscriptions().hashCode();
         return result;
     }
 }
